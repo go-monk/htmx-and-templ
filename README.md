@@ -28,8 +28,6 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
----
-
 # 2) `html/template`
 
 That's nice and simple. But feels kind of hardcoded, static... What if we want some part of the page to change? We can use [html/template](https://pkg.go.dev/html/template) to add variables to the page:
@@ -65,17 +63,11 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 
 Before sending the page to the browser (or other HTTP client), we replace `{{.Paragraph}}` in data from the `page.html` with the current time. Cool!
 
-However, to refresh the time, we need to reload the whole page. What if we don’t want to do that? What if we want to refresh **just part of the page** — the variable part? This is called **AJAX** (Asynchronous JavaScript and ~~XML~~ — it’s mostly JSON these days) in web parlance.
-
-AJAX allows your web page to communicate with the server **without a full reload**. It's commonly used in modern web apps for smooth, dynamic user experiences.
-
----
+However, to refresh the time, we need to reload the whole page. What if we don’t want to do that? What if we want to refresh just part of the page — the variable part? This is called AJAX (Asynchronous JavaScript and ~~XML~~ — it’s mostly JSON these days) in web parlance. AJAX allows your web page to communicate with the server without a full reload. It's commonly used in modern web apps for smooth, dynamic user experiences.
 
 # 3) HTMX
 
-Enter HTMX. Finally.
-
-**HTMX** simplifies AJAX-like behavior using just HTML attributes — no JavaScript required!
+Enter HTMX. Finally. HTMX simplifies AJAX-like behavior using just HTML attributes — no JavaScript required!
 
 First, add these into `page.html`:
 
