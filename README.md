@@ -105,6 +105,6 @@ func TimeHandler(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-Now, when you reload the page in your browser, both timestamps will update. But if you click the **Refresh** button — thanks to HTMX — **only the bottom timestamp updates**:
+Now, when you reload the page in your browser, both timestamps will update. But if you click the Refresh button — thanks to HTMX — only the bottom timestamp updates:
 
 ![htmx demo](htmx.gif)
