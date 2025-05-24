@@ -65,9 +65,9 @@ Before sending the page to the browser (or other HTTP client), we replace `{{.Pa
 
 However, to refresh the time, we need to reload the whole page. What if we don’t want to do that? What if we want to refresh just part of the page — the variable part? This is called AJAX (Asynchronous JavaScript and ~~XML~~ — it’s mostly JSON these days) in web parlance. AJAX allows your web page to communicate with the server without a full reload. It's commonly used in modern web apps for smooth, dynamic user experiences.
 
-# 3) HTMX
+# 3) htmx
 
-Enter HTMX. Finally. HTMX simplifies AJAX-like behavior using just HTML attributes — no JavaScript required!
+Enter [htmx](https://htmx.org). Finally. It simplifies AJAX-like behavior by using just HTML attributes — no messing with JavaScript required!
 
 First, add these into `page.html`:
 
