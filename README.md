@@ -119,3 +119,68 @@ func TimeHandler(w http.ResponseWriter, r *http.Request) {
 Now, when you reload the page in your browser, both timestamps will update. But if you click the "Refresh" button only the bottom timestamp updates:
 
 ![htmx demo](htmx.gif)
+
+# 4) templ
+
+If you don't like working with `html/template` standard library package for some reason, you can have a look at [templ](https://templ.guide).
+
+To start using it for our project, replace `page.html` with `page.templ` that looks like this:
+
+```go
+package main
+
+templ PageLayout(data Page) {
+	<!DOCTYPE html>
+	<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="https://unpkg.com/htmx.org@2.0.4"></script>
+		<title>Title</title>
+	</head>
+	<body>
+		@TimeDisplay(data)
+	</body>
+	</html>
+}
+
+templ TimeDisplay(data Page) {
+	<p>Last full page reload</p>
+	{data.FullReloadTime}
+	<p>Current time is</p>
+	<div id="result">{data.FullReloadTime}</div>
+	<button 
+		hx-get="/time" 
+		hx-target="#result" 
+		hx-swap="innerHTML">
+		Refresh
+	</button>
+}
+```
+
+As you can see with templ you can define templates like Go functions that take arguments. You can also compose these components by using `@`.  
+
+Next, change the `Handler` in `main.go` like this:
+
+```go
+func Handler(w http.ResponseWriter, r *http.Request) {
+	data := Page{
+		FullReloadTime: time.Now().Format(time.DateTime),
+	}
+	PageLayout(data).Render(r.Context(), w)
+}
+```
+
+Finally you need to get the templ package and binary and generate Go code from the `page.templ` file:
+
+```sh
+go get github.com/a-h/templ # add templ package
+go install github.com/a-h/templ/cmd/templ@latest # install templ binary
+templ generate # generate Go code from templ
+```
+
+Now you can run your Go server as before:
+
+```sh
+go run .
+```
