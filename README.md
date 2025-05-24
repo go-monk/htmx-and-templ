@@ -1,3 +1,5 @@
+The full code mentioned below can be found at https://github.com/go-monk/html-and-templ.
+
 # 1) The Simplest Web Page
 
 The simplest web page is just some data in HTML format transferred over the HTTP protocol and rendered in your browser. To implement this, we only need to create the data (stored in the `page` variable) and start an HTTP server that returns that data:
@@ -28,7 +30,16 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-# 2) `html/template`
+To see for yourself start the server
+
+```sh
+cd 1
+go run .
+```
+
+and visit http://localhost:8080.
+
+# 2) Templating with `html/template`
 
 That's nice and simple. But feels kind of hardcoded, static... What if we want some part of the page to change? We can use [html/template](https://pkg.go.dev/html/template) to add variables to the page:
 
@@ -61,9 +72,9 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-Before sending the page to the browser (or other HTTP client), we replace `{{.Paragraph}}` in data from the `page.html` with the current time. Cool!
+Before sending the page to the browser (or other HTTP client), we replace the `{{.Paragraph}}` part in data from the `page.html` with the current time. Cool!
 
-However, to refresh the time, we need to reload the whole page. What if we don’t want to do that? What if we want to refresh just part of the page — the variable part? This is called AJAX (Asynchronous JavaScript and ~~XML~~ — it’s mostly JSON these days) in web parlance. AJAX allows your web page to communicate with the server without a full reload. It's commonly used in modern web apps for smooth, dynamic user experiences.
+However, to refresh the time, we need to reload the whole page. What if we don’t want to do that? What if we want to refresh just part of the page — the variable part? This is called AJAX in web parlance: Asynchronous JavaScript and XML (it’s mostly JSON not XML these days). AJAX allows your web page to communicate with the server without a full reload. It's commonly used in modern web apps for smooth, dynamic user experiences.
 
 # 3) htmx
 
@@ -101,10 +112,10 @@ We also need to implement the handler for the `/time` path:
 http.HandleFunc("/time", TimeHandler)
 
 func TimeHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, time.Now().String())
+	fmt.Fprint(w, time.Now().Format(time.DateTime))
 }
 ```
 
-Now, when you reload the page in your browser, both timestamps will update. But if you click the Refresh button — thanks to HTMX — only the bottom timestamp updates:
+Now, when you reload the page in your browser, both timestamps will update. But if you click the "Refresh" button only the bottom timestamp updates:
 
 ![htmx demo](htmx.gif)
