@@ -1,4 +1,4 @@
-The full code mentioned below can be found at https://github.com/go-monk/html-and-templ.
+The full code mentioned below can be found at https://github.com/go-monk/htmx-and-templ.
 
 # 1) The Simplest Web Page
 
