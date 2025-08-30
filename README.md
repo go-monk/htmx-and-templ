@@ -1,5 +1,3 @@
-Source: https://github.com/go-monk/htmx-and-templ
-
 # 1) The Simplest Web Page
 
 The simplest web page is just some data in HTML format transferred over the HTTP protocol and rendered in your browser. To implement this, we only need to create the data (stored in the `page` variable) and start an HTTP server that returns that data:
